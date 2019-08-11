@@ -1,7 +1,33 @@
 Notes on R
 
-Removing NA values from a Dataset variable - Use filter() function to filter all values that are not NA with !is.na(variable). 
+*Removing NA values from a Dataset variable 
+Use filter() function to filter all values that are not NA with !is.na(variable). 
 You can do this with multiple variables as well. See Example: 
 
 not_cancelled <- flights %>% 
   filter(!is.na(dep_delay), !is.na(arr_delay))
+  
+  
+*Keeping count on number of samples with group_by function
+When using the group_by function, the data.frame becomes grouped by the different group of variables within a set of variables. 
+Say you have the variable Ice Cream, within it you have "Vanille", "Strawberry", "Nuts", etc. Group_by function allows you to perform 
+data transformation on those groups. For this purpose, 
+
+*Subsetting in Summarize
+You can subsett or filter a certain number of values from a variable within a dataset. For instance, say you only want to include flights 
+that had positive delays in your summarize(mean_dep_delay = mean(dep_delay))Simply include a subsett notation: 
+
+summarize(mean_dep_delay = mean(dep_delay[dep_delay>0]))
+
+*Counting number of observations in a group of variables, excluding NA values and number of distinct values
+count function counts the number of observation for each group within a variable. If there is a continous variable you want
+the cumulative sum of, include the "wt" arguement, which stands for weighted tally??
+
+count(flights, destination)
+count(flights, destination, wt = distance)
+
+To exlude observations with NA values in any variable, use: 
+sum(!is.na(x)) 
+
+To count number of distinct(unique) observations, use:
+n_distinct(x)
