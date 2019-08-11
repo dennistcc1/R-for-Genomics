@@ -1,0 +1,7 @@
+Notes on R
+
+Removing NA values from a Dataset variable - Use filter() function to filter all values that are not NA with !is.na(variable). 
+You can do this with multiple variables as well. See Example: 
+
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
