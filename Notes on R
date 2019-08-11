@@ -1,33 +1,69 @@
-Notes on R
+---
+title: "Notes and Functions in R"
+output: html_notebook
+---
 
-*Removing NA values from a Dataset variable 
-Use filter() function to filter all values that are not NA with !is.na(variable). 
-You can do this with multiple variables as well. See Example: 
 
+- Execute code in code chunk = *Ctrl+Shift+Enter*
+- Add a new code chunk = *Ctrl+Alt+I* 
+- To Preview = *Ctrl+Shift+K*
+
+
+### Removing NA values from a Dataset variable 
+Use filter() function to filter all values that are not NA with !is.na(variable). You can do this with multiple variables as well: 
+```{r}
 not_cancelled <- flights %>% 
   filter(!is.na(dep_delay), !is.na(arr_delay))
-  
-  
-*Keeping count on number of samples with group_by function
+```
+
+### Keeping count on number of samples with group_by function
 When using the group_by function, the data.frame becomes grouped by the different group of variables within a set of variables. 
-Say you have the variable Ice Cream, within it you have "Vanille", "Strawberry", "Nuts", etc. Group_by function allows you to perform 
-data transformation on those groups. For this purpose, 
+Say you have the variable Ice Cream, within it you have "Vanille", "Strawberry", "Nuts", etc. Group_by function allows you to 
+perform data transformation on those groups combined with summarise function and other useful summarise functions. 
 
-*Subsetting in Summarize
-You can subsett or filter a certain number of values from a variable within a dataset. For instance, say you only want to include flights 
-that had positive delays in your summarize(mean_dep_delay = mean(dep_delay))Simply include a subsett notation: 
+### Summarize and functions used in combination
 
+#### Subsetting in Summarize
+You can subsett or filter a certain number of values from a variable within a dataset. For instance, say you only want to 
+include flights that had positive delays in your summary, simply include a subsett notation: 
+```{r}
 summarize(mean_dep_delay = mean(dep_delay[dep_delay>0]))
+```
 
-*Counting number of observations in a group of variables, excluding NA values and number of distinct values
+#### Counts and Propotions through logical operators and summarise()
+Recall that the logical operators <>|& will returun logical value, TRUE or FALSE. This means that when we write:
+summarise(n_variables_higher_than_0 = sum(variable > 0), the function will return a count of all the TRUE values. 
+Using mean(variable > 0) will give us a proportion, the proportion of the total number of variables that satisfy the 
+criteria given (in this case, being larger than 0).
+
+### Counting number of observations in a group of variables, excluding NA values and number of distinct values
 count function counts the number of observation for each group within a variable. If there is a continous variable you want
 the cumulative sum of, include the "wt" arguement, which stands for weighted tally??
 
+```{r}
 count(flights, destination)
 count(flights, destination, wt = distance)
+```
 
 To exlude observations with NA values in any variable, use: 
+```{r}
 sum(!is.na(x)) 
+```
 
 To count number of distinct(unique) observations, use:
+```{r}
 n_distinct(x)
+```
+
+### Some Definitions
+
+- A variable is a quantity, quality, or property that you can measure.
+
+- A value is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.
+
+- An observation is a set of measurements made under similar conditions (you usually make all of the measurements in an observation 
+at the same time and on the same object). An observation will contain several values, each associated with a different variable. 
+I’ll sometimes refer to an observation as a data point.
+
+- Tabular data is a set of values, each associated with a variable and an observation. Tabular data is tidy if each value is 
+placed in its own “cell”, each variable in its own column, and each observation in its own row.
